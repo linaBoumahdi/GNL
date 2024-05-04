@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:21:25 by lboumahd          #+#    #+#             */
-/*   Updated: 2024/05/03 17:12:58 by lboumahd         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:11:38 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,9 @@ char *ft_strjoin (char *s1, char *s2, int cursor)
 		res[i++] = s2[j++];
 	res[i] = '\0';
 	return(res);
+}
+void new_line_reset(char **s1, char *s2)
+{
+	free(*s1);
+	*s1 = s2;
 }

@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 10:14:23 by lboumahd          #+#    #+#             */
-/*   Updated: 2024/05/03 17:08:05 by lboumahd         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:11:39 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char *add_line (char *remains,char *new_line,int cursor, int fd)
 		//set new buffer 
 		ft_strlcpy(buffer, buffer, len_line);
 		// join buff + new_line
-		new_line = ft_strjoin(new_line, buffer);// memory leak double allocation 
+		new_line_reset(&new_line, ft_strjoin(new_line, buffer));// memory leak double allocation 
 	}
 	return(new_line);
 }
@@ -46,9 +46,10 @@ char	*get_next_line (int fd)
 	//error checking : 
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX || fd >= OPEN_MAX)
 		return NULL;
-	cursor = -1;
-	//second call : 
-	//first call : 
+	// check always double free 
+	//second call : check if remains contains smthg -> cpy remains to new_line
+					//clear remains 
+	//first call : read + copy remains to new_line 
 	new_line = add_line(remains, new_line, &cursor,fd);
 	return(new_line);
 }
